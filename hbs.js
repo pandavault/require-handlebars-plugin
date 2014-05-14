@@ -532,9 +532,9 @@ define([
           var partialReferences = [];
           if(require.config.hbs._partials[name])
             partialReferences = require.config.hbs._partials[name].references;
-          else
-            partialReferences = [name.split(partialsUrl).pop()];
-
+          else if(name.indexOf(partialsUrl)==0)
+            partialReferences = [name.substr(partialsUrl.length)];
+          
           text = '/* START_TEMPLATE */\n' +
                  'define('+tmplName+"['hbs','hbs/handlebars'"+depStr+helpDepStr+'], function( hbs, Handlebars ){ \n' +
                    'var t = Handlebars.template(' + prec + ');\n';
